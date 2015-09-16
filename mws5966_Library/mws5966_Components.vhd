@@ -53,6 +53,30 @@ package mws5966_Components is
 			  EN :in STD_LOGIC;
 		     Y  : out STD_LOGIC_VECTOR (7 downto 0));
 	end component;
+	
+	component D_flip_flop
+		port ( D   : in STD_LOGIC;
+			    CLK : in STD_LOGIC;
+			    Q   : out STD_LOGIC:= '0');
+	end component;
+	
+	component D_flip_flop_CE
+		port ( D   : in STD_LOGIC;
+				 CE  : in STD_LOGIC;
+			    CLK : in STD_LOGIC;
+			    Q   : out STD_LOGIC:= '0');
+	end component;
+	
+	component DFF_CE_CR is
+
+		port ( D   : in STD_LOGIC;
+				 CE  : in STD_LOGIC;
+				 CLK : in STD_LOGIC;
+			    CLR : in STD_LOGIC;
+             Q   : out STD_LOGIC:= '0');
+			 
+	end component;
+
 
 	component FullAdder is
 		port (A     : in  STD_LOGIC;
