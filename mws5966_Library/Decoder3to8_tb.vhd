@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------
--- Entity:        HexToSevenSeg_tb
+-- Entity:        Decoder 3 to 8 
 -- Written By:    E. George Walters
 -- Date Created:  2 Sep 14
 -- Description:   VHDL test bench for HexToSevenSeg
@@ -11,7 +11,6 @@
 ----------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.ALL; 
-
 --------------------------------------------------------------------------------
 entity Decoder3to8_tb is
 end    Decoder3to8_tb;

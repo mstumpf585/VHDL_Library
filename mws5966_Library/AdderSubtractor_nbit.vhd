@@ -15,7 +15,7 @@ library mws5966_Library;
 use mws5966_Library.mws5966_Components.ALL;
 
 entity AdderSubtractor_nbit is
-	 generic(N: integer :=4);
+	 generic(N: integer :=8);
     Port   (A 			  : in  STD_LOGIC_VECTOR(n-1 downto 0);
             B			  : in  STD_LOGIC_VECTOR(n-1 downto 0);
             SUBTRACT   : in  STD_LOGIC;
@@ -39,11 +39,15 @@ begin
 
 
 		--Logic for Invert or Pass (0...3)
+		BXOR(7) <= B(7) xor SUBTRACT;
+		BXOR(6) <= B(6) xor SUBTRACT;
+		BXOR(5) <= B(5) xor SUBTRACT;
+		BXOR(4) <= B(4) xor SUBTRACT;
 		BXOR(3) <= B(3) xor SUBTRACT;
 		BXOR(2) <= B(2) xor SUBTRACT;
 		BXOR(1) <= B(1) xor SUBTRACT;
 		BXOR(0) <= B(0) xor SUBTRACT;
-		
+	
 		RCA: RCA_nbit 
 			  generic map(N => N) 
 			  port map	 (A	  => A,	
@@ -55,7 +59,7 @@ begin
 		
 		
 		--Logic for OVERFLOW
-		OVERFLOW <= (SUBTRACT and ((A(3) and (not B(3)) and (not SUM_int(3))) or ((not A(3)) and B(3) and SUM_int(3)))) or ((not SUBTRACT) and (((not A(3)) and (not B(3)) and SUM_int(3)) or (A(3) and B(3) and not(SUM_int(3)))));
+		OVERFLOW <= (SUBTRACT and ((A(N-1) and (not B(N-1)) and (not SUM_int(N-1))) or ((not A(N-1)) and B(N-1) and SUM_int(N-1)))) or ((not SUBTRACT) and (((not A(N-1)) and (not B(N-1)) and SUM_int(N-1)) or (A(N-1) and B(N-1) and not(SUM_int(N-1)))));
 		
 		--set SUM(3..0) == SUM_int (3..0) to output
 		SUM<=SUM_int;

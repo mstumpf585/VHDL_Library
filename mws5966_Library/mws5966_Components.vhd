@@ -17,7 +17,7 @@ package mws5966_Components is
 
 	
     component AdderSubtractor_nbit is
-		generic(N: integer :=4);
+		generic(N           : integer);
 		Port   (A 			  : in  STD_LOGIC_VECTOR(n-1 downto 0);
 				  B			  : in  STD_LOGIC_VECTOR(n-1 downto 0);
 				  SUBTRACT    : in  STD_LOGIC;
@@ -26,7 +26,7 @@ package mws5966_Components is
    end component;
 	
 	component Average_nbit is
-	generic(n : integer :=4);
+	generic(n       : integer);
 	   port(A_avg   : in  STD_LOGIC_VECTOR (n-1 downto 0);
 		     B_avg   : in  STD_LOGIC_VECTOR (n-1 downto 0);
 		     C_avg   : in  STD_LOGIC_VECTOR (n-1 downto 0);
@@ -48,10 +48,36 @@ package mws5966_Components is
 			      LES : out  STD_LOGIC);
 	end component;
 	
+	component Counter_nbit
+		generic (n   : integer);
+		port    (EN  : in STD_LOGIC;
+			 	   CLK : in STD_LOGIC;
+				   CLR : in STD_LOGIC;
+				   Q   : out STD_LOGIC_VECTOR (n-1 downto 0));
+	end component;
+	
+	component CounterUpDown_nbit is
+		generic (n : integer);
+		port    (EN 	: in STD_LOGIC;
+				   UP 	: in STD_LOGIC;
+				   DOWN	: in STD_LOGIC;
+				   CLK 	: in STD_LOGIC;
+				   CLR 	: in STD_LOGIC;
+				   Q 		: out STD_LOGIC_VECTOR (n-1 downto 0));
+			
+   end component;
+	
 	component Decoder3to8 is
 		port(X  : in STD_LOGIC_VECTOR (3 downto 0);
-			  EN :in STD_LOGIC;
+			  EN : in STD_LOGIC;
 		     Y  : out STD_LOGIC_VECTOR (7 downto 0));
+	end component;
+	
+	component Debounce is
+		port (D      : in STD_LOGIC;
+				SAMPLE : in STD_LOGIC;
+				CLK    : in STD_LOGIC;
+				Q      : out STD_LOGIC);
 	end component;
 	
 	component D_flip_flop
@@ -68,7 +94,6 @@ package mws5966_Components is
 	end component;
 	
 	component DFF_CE_CR is
-
 		port ( D   : in STD_LOGIC;
 				 CE  : in STD_LOGIC;
 				 CLK : in STD_LOGIC;
@@ -76,7 +101,6 @@ package mws5966_Components is
              Q   : out STD_LOGIC:= '0');
 			 
 	end component;
-
 
 	component FullAdder is
 		port (A     : in  STD_LOGIC;
@@ -119,8 +143,8 @@ package mws5966_Components is
 	end component;
 	
 	component Mux4to1_nbit is
-		generic (n    : integer:= 4);
-		Port	  ( X0  : in  STD_LOGIC_VECTOR (n-1 downto 0);
+		generic (n    : integer);
+		Port	  (X0   : in  STD_LOGIC_VECTOR (n-1 downto 0);
 					X1	  : in  STD_LOGIC_VECTOR (n-1 downto 0);
 					X2   : in  STD_LOGIC_VECTOR (n-1 downto 0);
 					X3   : in  STD_LOGIC_VECTOR (n-1 downto 0);
@@ -128,8 +152,22 @@ package mws5966_Components is
 					Y	  : out STD_LOGIC_VECTOR (n-1 downto 0));  
 
 	end component;
-
 	
+	component oneShot is
+		port (D   : in STD_LOGIC;
+				CLK : in STD_LOGIC;
+				Q   : out STD_LOGIC);
+	end component;
+	
+	component pulseGenerator is
+	generic (n         : integer;
+				maxCount  : natural := 9); 
+	port    (EN        :  in  STD_LOGIC;
+				CLK 		 :  in  STD_LOGIC;
+				CLR 		 :  in   STD_LOGIC;
+				PULSE_OUT : out STD_LOGIC);
+	end component;
+
 	component RCA_nbit 
 		generic ( N     : integer);
 		port 	  ( A		 : in STD_LOGIC_VECTOR(n-1 downto 0);
@@ -156,6 +194,32 @@ package mws5966_Components is
             C_out 	: out  STD_LOGIC);
 	end component;
 	
+	component Reg_nbit is
+		generic (n    : integer);
+		port 	  (D    : in STD_LOGIC_VECTOR(n-1 downto 0);
+				   LOAD : in STD_LOGIC;
+				   CLK  : in STD_LOGIC;
+					CLR  : in STD_LOGIC;
+					Q    : out STD_LOGIC_VECTOR(n-1 downto 0) := (OTHERS => '0'));
+	end component;
+	
+	component shiftReg_16bit is
+		port (D      : in STD_LOGIC;
+				CLK    : in STD_LOGIC;
+				CLR    : in STD_LOGIC;
+				EN     : in STD_LOGIC;
+				Q      : out STD_LOGIC_VECTOR(15 downto 0));
+	end component;
+
+	component WordTo8dig7seg is
+		Port (STROBE   : in STD_LOGIC;
+			   CLK      : in STD_LOGIC;
+			   CLR      : in STD_LOGIC;
+			   WORD     : in STD_LOGIC_VECTOR  (31 downto 0);
+			   DIGIT_EN : in STD_LOGIC_VECTOR  (7  downto 0);
+			   ANODE    : out STD_LOGIC_VECTOR (7  downto 0);
+			   SEGMENT  : out STD_LOGIC_VECTOR (0  to 6));
+	end component;
 end mws5966_Components;
 ----------------------------------------------------------------------------
 
