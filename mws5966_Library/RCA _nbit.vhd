@@ -14,7 +14,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity RCA_nbit is
-	 generic(n: integer :=4);
+	 generic(n: integer :=8);
     Port   ( A		: in STD_LOGIC_VECTOR(n-1 downto 0);
 				 B		: in STD_LOGIC_VECTOR(n-1 downto 0);
 			    c_in	: in STD_LOGIC;
