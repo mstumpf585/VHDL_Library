@@ -36,6 +36,7 @@ begin
 	begin 
 		if (CLK'event and CLK='1') then 
 			if(CLR = '1') then 
+				count <= 0; 
 				Q <= (others => '0');
 			elsif (UP = '1' and EN = '1') then
 				count <= count + 1;

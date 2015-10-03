@@ -29,7 +29,7 @@ begin
 
 	process(CLK,CLR) is 
 	begin 
-		if (CLR = '0') then 
+		if (CLR = '1') then 
 			Q <= '0';
 		elsif(CLK'event and CLK='1') then 
 			if(CE = '1') then
