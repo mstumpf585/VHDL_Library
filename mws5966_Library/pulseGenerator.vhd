@@ -18,21 +18,29 @@ architecture Behavioral of pulseGenerator is
  
 signal PULSE_INT : STD_LOGIC;
 signal CLR_int   : STD_LOGIC;
-signal count     : STD_LOGIC_VECTOR ( n -1 downto 0);
+signal count     : integer := 0;
 
 begin
 	
-	counter: Counter_nbit
-	   generic map ( n => n)
-		port map
-			(EN   => EN,
-			 CLK  => CLK, 
-			 CLR  => CLR_int, 
-			 Q    => count); 
+	
+	process (CLK) is 
+	begin 
+	
+		if (CLK'event and CLK='1') then 
+			if(CLR_int = '1') then 
+				count <= 0;
+			elsif (EN = '1') then
+				count <= count+1; 
+			end if;
+		end if;
 		
-	PULSE_INT <= '1'	when (to_integer (unsigned(count(n-1 downto 0))) = maxCount) else 
-					 '0';
-	PULSE_OUT <= PULSE_INT; 	
+	end process;
+		
+	PULSE_int <= '1'	when (count = maxCount) else 
+					 '0';	
 	CLR_int   <= (pulse_int) or (CLR);
+	
+	PULSE_out <= pulse_int; 
+	
 end Behavioral;
 

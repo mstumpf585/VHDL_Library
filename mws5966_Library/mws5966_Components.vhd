@@ -210,6 +210,15 @@ package mws5966_Components is
 				EN     : in STD_LOGIC;
 				Q      : out STD_LOGIC_VECTOR(15 downto 0));
 	end component;
+	
+	component shiftReg_32bit is
+		port (D      : in STD_LOGIC;
+				CLK    : in STD_LOGIC;
+				CLR    : in STD_LOGIC;
+				EN     : in STD_LOGIC;
+				Q      : out STD_LOGIC_VECTOR(15 downto 0));
+	end component;
+
 
 	component WordTo8dig7seg is
 		Port (STROBE   : in STD_LOGIC;

@@ -29,7 +29,7 @@ signal Q_int : STD_LOGIC_VECTOR(2 downto 0);
 
 begin
 
-	process (CLK) is 
+	process (CLK,Q_int) is 
 		begin
 		
 			if (CLK'event and CLK='1') then 
