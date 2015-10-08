@@ -16,7 +16,7 @@ use mws5966_library.mws5966_Components.ALL;
 ------------------------------------------------------------
 entity Reg_nbit is
 
-	generic (n    : integer := 8);
+	generic (n    : integer := 4);
 		port (D    : in STD_LOGIC_VECTOR(n-1 downto 0);
 				LOAD : in STD_LOGIC;
 				CLK  : in STD_LOGIC;
