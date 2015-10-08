@@ -26,35 +26,131 @@ end shiftReg_16bit;
 
 architecture Behavioral of shiftReg_16bit is
 
-signal Q_int : STD_LOGIC_VECTOR(15 downto 0):=(others =>'0'); 
+signal pulse_int: STD_LOGIC;
+signal OS_int   : STD_LOGIC; 
+signal DB_int   : STD_LOGIC;
+signal Q_int    : STD_LOGIC_VECTOR(31 downto 0):=(others =>'0'); 
 
 begin 
+
+pulse: PulseGenerator
+	generic map (n         => 4,
+				 maxCount  => 10000 );	
 	
-	process (CLK) is 
-		begin
+	DFF15: DFF_CE_CR
+		port map( D  => Q_int(16),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(15));
+					
+	DFF14: DFF_CE_CR
+		port map( D  => Q_int(15),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(14));
+					
+	DFF13: DFF_CE_CR
+		port map( D  => Q_int(14),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(13));
+					
+	DFF12: DFF_CE_CR
+		port map( D  => Q_int(13),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(12));
+					
+	DFF11: DFF_CE_CR
+		port map( D  => Q_int(12),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(11));
+					
+	DFF10: DFF_CE_CR
+		port map( D  => Q_int(11),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(10));
+					
+	DFF9: DFF_CE_CR
+		port map( D  => Q_int(10),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(9));
+					
+	DFF8: DFF_CE_CR
+		port map( D  => Q_int(9),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(8));
+					
+	DFF7: DFF_CE_CR
+		port map( D  => Q_int(8),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(7));
+					
+	DFF6: DFF_CE_CR
+		port map( D  => Q_int(7),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(6));
+					
+	DFF5: DFF_CE_CR
+		port map( D  => Q_int(6),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(5));
+					
+	DFF4: DFF_CE_CR
+		port map( D  => Q_int(5),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(4));
+					
+	DFF3: DFF_CE_CR
+		port map( D  => Q_int(4),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(3));
+					
+	DFF2: DFF_CE_CR
+		port map( D  => Q_int(3),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(2));
+					
+	DFF1: DFF_CE_CR
+		port map( D  => Q_int(2),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(1));
+					
+	DFF0: DFF_CE_CR
+		port map(D   => Q_int(1),
+					CE  => OS_int,
+					CLK => CLK, 
+					CLR => CLR,
+					Q   => Q_int(0));
+				
+	Q(15 downto 0) <= Q_int(31 downto 16); 
+end Structural;
 		
-			if (CLK'event and CLK='1') then 
-				if (EN = '1') then
-					Q_int(15)  <= D;
-					Q_int(14)  <= Q_int(15);
-					Q_int(13)  <= Q_int(14);
-					Q_int(12)  <= Q_int(13);
-					Q_int(11)  <= Q_int(12);
-					Q_int(10)  <= Q_int(11);
-					Q_int(9)   <= Q_int(10);
-					Q_int(8)   <= Q_int(9);
-					Q_int(7)   <= Q_int(8);
-					Q_int(6)   <= Q_int(7);
-					Q_int(5)   <= Q_int(6);
-					Q_int(4)   <= Q_int(5);
-					Q_int(3)   <= Q_int(4);
-					Q_int(2)   <= Q_int(3);
-					Q_int(1)   <= Q_int(2);
-					Q_int(0)   <= Q_int(1);
-				 elsif(CLR = '1') then 
-					Q_int <= (others => '0');
-				 end if;
-			end if;
-		end process;
-		Q <= Q_int; 
-end Behavioral;
+			
+
