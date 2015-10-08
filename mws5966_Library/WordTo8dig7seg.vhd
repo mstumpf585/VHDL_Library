@@ -11,24 +11,25 @@ entity WordTo8dig7seg is
 		 WORD     : in STD_LOGIC_VECTOR  (31 downto 0);
 		 DIGIT_EN : in STD_LOGIC_VECTOR  (7  downto 0);
 		 ANODE    : out STD_LOGIC_VECTOR (7  downto 0);
-		 SEGMENT  : out STD_LOGIC_VECTOR (0  to 6));
+		 SEGMENT  : out STD_LOGIC_VECTOR ( 0 to 6));
 end WordTo8dig7seg;
 
 architecture Behavioral of WordTo8dig7seg is
 
 -- constants 
 	-- anode 7..0
-		constant anode7: STD_LOGIC_VECTOR(7 downto 0) := "01111111"; 
-		constant anode6: STD_LOGIC_VECTOR(7 downto 0) := "10111111"; 	
-		constant anode5: STD_LOGIC_VECTOR(7 downto 0) := "11011111"; 
-		constant anode4: STD_LOGIC_VECTOR(7 downto 0) := "11101111"; 
-		constant anode3: STD_LOGIC_VECTOR(7 downto 0) := "11110111"; 
-		constant anode2: STD_LOGIC_VECTOR(7 downto 0) := "11111011"; 
-		constant anode1: STD_LOGIC_VECTOR(7 downto 0) := "11111101"; 
-		constant anode0: STD_LOGIC_VECTOR(7 downto 0) := "11111110"; 
+		constant anode7  : STD_LOGIC_VECTOR(7 downto 0) := "01111111"; 
+		constant anode6  : STD_LOGIC_VECTOR(7 downto 0) := "10111111"; 	
+		constant anode5  : STD_LOGIC_VECTOR(7 downto 0) := "11011111"; 
+		constant anode4  : STD_LOGIC_VECTOR(7 downto 0) := "11101111"; 
+		constant anode3  : STD_LOGIC_VECTOR(7 downto 0) := "11110111"; 
+		constant anode2  : STD_LOGIC_VECTOR(7 downto 0) := "11111011"; 
+		constant anode1  : STD_LOGIC_VECTOR(7 downto 0) := "11111101"; 
+		constant anode0  : STD_LOGIC_VECTOR(7 downto 0) := "11111110"; 
+		constant anodeOFF: STD_LOGIC_VECTOR(7 downto 0) := "11111111"; 
 		
 	-- this is for any generic components 
-		constant n:        integer :=4;
+		constant n:        integer :=3;
 
 	-- maxCount constant to clear counter 
 		constant maxCount: integer := 7;
@@ -36,7 +37,7 @@ architecture Behavioral of WordTo8dig7seg is
 -- internal signals 
 		signal CLR_int     : STD_LOGIC;
 		signal comp_eq_out : STD_LOGIC;
-		signal count_int   : STD_LOGIC_VECTOR (3  downto 0);
+		signal count_int   : STD_LOGIC_VECTOR (2  downto 0);
 		signal mux_out1    : STD_LOGIC_VECTOR (7  downto 0); 
 		signal mux_out2    : STD_LOGIC_VECTOR (3  downto 0); 
 		signal SEGMENT_int : STD_LOGIC_VECTOR (55 downto 0);
@@ -49,12 +50,13 @@ begin
 	ANODE    <= anode7 when (count_int = "111") and DIGIT_EN(7) = '1' else 
 				   anode6 when (count_int = "110") and DIGIT_EN(6) = '1' else 
 				   anode5 when (count_int = "101") and DIGIT_EN(5) = '1' else 
-				   anode7 when (count_int = "100") and DIGIT_EN(4) = '1' else 
+				   anode4 when (count_int = "100") and DIGIT_EN(4) = '1' else 
 				   anode3 when (count_int = "011") and DIGIT_EN(3) = '1' else 
 				   anode2 when (count_int = "010") and DIGIT_EN(2) = '1' else 
 				   anode1 when (count_int = "001") and DIGIT_EN(1) = '1' else 
 				   anode0 when (count_int = "000") and DIGIT_EN(0) = '1' else 
-				   anode7;
+				   anodeOFF;
+
 					
 	-- mux 8:1 hex 		
 	mux_out2 <= WORD(31 downto 28) when (count_int = "111") else 
