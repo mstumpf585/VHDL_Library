@@ -115,8 +115,44 @@ package mws5966_Components is
 	        ANODE    			: out STD_LOGIC_VECTOR(7 downto 0);
 	        LED      			: out STD_LOGIC_VECTOR(15 downto 0));
 	
-    end component;
-
+   end component;
+---------------------FSMs----------------------------------------
+	component FSM
+		PORT (CLK			:	in STD_LOGIC;
+				CLR			:	in STD_LOGIC;
+				STATUS_in   :  in STD_LOGIC_VECTOR (4 downto 0); 
+				CONTROL_out :	out STD_LOGIC_VECTOR(4 downto 0)); 
+	end component;
+	
+	component Train_FSM
+		PORT (CLK			:	in STD_LOGIC;
+				CLR			:	in STD_LOGIC;
+				EN          :  in STD_LOGIC;
+				CONTROL_out :	out STD_LOGIC_VECTOR(15 downto 0)); 
+	end component;
+	
+	component PingPong_FSM is
+	Port (CLK			:	in STD_LOGIC;
+			CLR			:	in STD_LOGIC; 
+			EN        	:	in STD_LOGIC; 
+			control_out :	out STD_LOGIC_VECTOR(15 downto 0));
+	end component;
+	
+	component Physics_FSM is
+	Port (CLK			:	in STD_LOGIC;
+			CLR			:	in STD_LOGIC; 
+			EN        	:	in STD_LOGIC; 
+			control_out :	out STD_LOGIC_VECTOR(15 downto 0));
+	end component;
+	
+	component wall_FSM is
+	Port (CLK			:	in STD_LOGIC;
+			CLR			:	in STD_LOGIC; 
+			EN        	:	in STD_LOGIC; 
+			STATUS_in	:  in STD_LOGIC_VECTOR (15 downto 0);
+			control_out :	out STD_LOGIC_VECTOR(15 downto 0));
+	end component;
+-------------------------------------------------------------------	
 	component FullAdder is
 		port (A     : in  STD_LOGIC;
 				B     : in  STD_LOGIC;
@@ -234,9 +270,27 @@ package mws5966_Components is
 				Q      : out STD_LOGIC_VECTOR(15 downto 0));
 	end component;
 
+	component SIPO_nbit is
+	generic (n    : integer);
+	port   (D      : in STD_LOGIC;
+			  CLK    : in STD_LOGIC;
+			  CLR    : in STD_LOGIC;
+			  Rshift : in STD_LOGIC;
+			  Lshift : in STD_LOGIC; 
+			  Q      : out STD_LOGIC_VECTOR(n-1 downto 0));
+	end component;
+	
+	
+	component byte_sipo is
+	port   (D      : in STD_LOGIC_VECTOR(7 downto 0);
+			  CLK    : in STD_LOGIC;
+			  CLR    : in STD_LOGIC;
+			  Rshift : in STD_LOGIC;
+			  Q      : out STD_LOGIC_VECTOR(31 downto 0));
+	end component;
 
 	component WordTo8dig7seg is
-		Port (STROBE    : in STD_LOGIC;
+		Port (STROBE   : in STD_LOGIC;
 			   CLK      : in STD_LOGIC;
 			   CLR      : in STD_LOGIC;
 			   WORD     : in STD_LOGIC_VECTOR  (31 downto 0);
@@ -244,15 +298,6 @@ package mws5966_Components is
 			   ANODE    : out STD_LOGIC_VECTOR (7  downto 0);
 			   SEGMENT  : out STD_LOGIC_VECTOR (0  to 6));
 	end component;
-	
-	component Wrap is
-	PORT (CLK			:   in 	STD_LOGIC;
-			BTNS        :   in 	STD_LOGIC_VECTOR(4 downto 0); 
-			SWITCHES    :   in 	STD_LOGIC_VECTOR(15 downto); 
-			LED         :	out STD_LOGIC_VECTOR(15 downto 0); 
-			ANODE       :	out STD_LOGIC_VECTOR(7 downto 0);
-			SEGMENT     :	out STD_LOGIC_VECTOR(0 to 6));
-	component Wrap;
 end mws5966_Components;
 ----------------------------------------------------------------------------
 
