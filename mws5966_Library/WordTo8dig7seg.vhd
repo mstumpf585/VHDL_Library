@@ -1,3 +1,14 @@
+----------------------------------------------------------------------------
+-- Entity:        WordTo8dig7seg
+-- Written By:    Michael Stumpf 
+-- Date Created:  10 OCT 15
+-- Description:   calculates the average of 4 numbers 
+--
+-- Revision History (10/14/15):
+-- 
+-- Dependencies:
+--		Counter_nbit, HexToSevenSeg
+----------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -32,7 +43,7 @@ architecture Behavioral of WordTo8dig7seg is
 		constant n:        integer :=3;
 
 	-- maxCount constant to clear counter 
-		constant maxCount: integer := 7;
+		constant maxCount: integer := 8;
 		
 -- internal signals 
 		signal CLR_int     : STD_LOGIC;
@@ -62,7 +73,7 @@ begin
 	mux_out2 <= WORD(31 downto 28) when (count_int = "111") else 
 				   WORD(27 downto 24) when (count_int = "110") else 
 				   WORD(23 downto 20) when (count_int = "101") else 
-				   WORD(31 downto 28) when (count_int = "100") else 
+				   WORD(19 downto 16) when (count_int = "100") else 
 				   WORD(15 downto 12) when (count_int = "011") else 
 				   WORD(11 downto  8) when (count_int = "010") else 
 				   WORD(7  downto  4) when (count_int = "001") else 

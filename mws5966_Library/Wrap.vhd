@@ -1,30 +1,20 @@
-----------------------------------------------------------------------------
--- Entity:        Wrap
--- Written By:    Michael Stumpf
--- Date Created:  10/8 2015
--- Description:   Used to prototype on the board quickly and for top levels 
---
--- Revision History (date, initials, description):
--- 	(none)
--- Dependencies:
--- oneShot Debouncer, WordTo8dig7seg
-----------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library mws5966_library;
 use mws5966_library.mws5966_components.ALL;
 
 
-entity Wrap is
-	PORT (CLK			:	in  STD_LOGIC;
-			BTNS        :   in  STD_LOGIC_VECTOR(4  downto 0); 
-			SWITCHES    :   in  STD_LOGIC_VECTOR(15 downto 0); 
+entity Lab05_mws5966_TopLVL is
+	PORT (CLK			:	in STD_LOGIC;
+			BTNS        :  in STD_LOGIC_VECTOR (4 downto 0); 
+			SWITCHES    :  in STD_LOGIC_VECTOR(0 to 15); 
 			LED         :	out STD_LOGIC_VECTOR(15 downto 0); 
 			ANODE       :	out STD_LOGIC_VECTOR(7 downto 0);
 			SEGMENT     :	out STD_LOGIC_VECTOR(0 to 6));
-end Wrap;
+end Lab05_mws5966_TopLVL;
 
-architecture Behavioral of Wrap is
+architecture Behavioral of Lab05_mws5966_TopLVL is
 	
 	
 	------btn input handlers-------

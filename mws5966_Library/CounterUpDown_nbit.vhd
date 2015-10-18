@@ -28,7 +28,7 @@ end CounterUpDown_nbit;
 
 architecture Behavioral of CounterUpDown_nbit is
 
-signal   count : integer := 0 ;
+signal   count : STD_LOGIC_VECTOR (n-1 downto 0):= (others => '0') ;
 
 begin
 	
@@ -36,17 +36,19 @@ begin
 	begin 
 		if (CLK'event and CLK='1') then 
 			if(CLR = '1') then 
-				count <= 0; 
-				Q <= (others => '0');
+				count <= (others => '0'); 
+				--Q <= (others => '0');
+				
 			elsif (UP = '1' and EN = '1') then
-				count <= count + 1;
+				count <= STD_LOGIC_VECTOR(unsigned(count)+1);
+				
 			elsif(DOWN = '1' and EN = '1') then
-				count <= count - 1; 
+				count <= STD_LOGIC_VECTOR(unsigned(count)-1); 
+			else
+				count <= (others => '0');
 			end if;
 		end if;
-		
-		Q <= STD_LOGIC_VECTOR(to_unsigned(count, Q'length));
-
 	end process;
 	
+	Q <= count;
 end Behavioral;
